@@ -1,1 +1,75 @@
 # portfolio-asabri
+Panduan Instalasi dan Penggunaan Sistem Portfolio ASABRI
+Dokumen ini berisi panduan teknis langkah demi langkah untuk menginstal dan menjalankan aplikasi Portfolio Website ASABRI.
+1. Prasyarat Sistem (System Requirements)
+Sebelum melakukan instalasi, pastikan komputer Anda telah memenuhi persyaratan berikut:
+•	PHP: Versi 8.1 atau yang lebih baru.
+•	Composer: Dependency manager untuk PHP.
+•	Node.js & NPM: Untuk manajemen aset frontend (Vite/Tailwind).
+•	Database: MySQL / MariaDB (bisa melalui paket seperti Laragon atau XAMPP).
+•	Web Server: Apache atau Nginx (bawaan Laragon/XAMPP).
+•	Git: (Opsional) Untuk cloning repository.
+2. Langkah-Langkah Instalasi
+Ikuti langkah-langkah berikut secara berurutan di terminal (Command Prompt / PowerShell / Terminal Laragon).
+Langkah 1: Persiapan File Project
+Jika Anda mendapatkan file ini melalui copy-paste folder, lewati langkah clone. Jika melalui Git:
+git clone https://github.com/fake-youth/portfolio-asabri.git
+cd portfolio-asabri
+Masukkan direktori project:
+cd c:/laragon/www/asabri-portfolio
+Langkah 2: Install Dependensi PHP
+Jalankan perintah berikut untuk mengunduh library PHP yang dibutuhkan aplikasi:
+composer install
+Langkah 3: Konfigurasi Environment
+Salin file contoh konfigurasi .env dan sesuaikan dengan pengaturan database Anda.
+cp .env.example .env
+Buka file .env dengan text editor (Notepad/VS Code) dan pastikan konfigurasi database sesuai, contoh:
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=asabri_portfolio
+DB_USERNAME=root
+DB_PASSWORD=
+Catatan: Jika menggunakan Laragon default, password biasanya kosong. Buat database baru bernama asabri_portfolio di phpMyAdmin jika belum ada.
+Langkah 4: Generate Application Key
+php artisan key:generate
+Langkah 5: Migrasi Database & Data Awal (Seeding)
+Jalankan perintah ini untuk membuat tabel-tabel di database dan mengisi data pengguna default:
+php artisan migrate --seed
+Langkah 6: Install Dependensi Frontend
+Install library JavaScript yang dibutuhkan:
+npm install
+ 
+Langkah 7: Build Aset Frontend
+Untuk mode development (pengembangan):
+npm run dev
+Atau untuk mode production (siap pakai):
+npm run build
+
+3. Menjalankan Aplikasi
+Jika Anda menggunakan Laragon, aplikasi mungkin sudah bisa diakses di http://portfolio.test (tergantung nama folder).
+Jika menjalankan manual via terminal:
+php artisan serve
+Akses aplikasi melalui browser di alamat: http://localhost:8000
+
+4. Informasi Akun Default
+Berikut adalah akun yang sudah dibuat otomatis untuk keperluan testing/login awal:
+Role	Email	Password	Akses
+Super Admin	superadmin@asabri.com	password123	Akses penuh seluruh sistem
+Admin	admin@asabri.com	password123	Mengelola dokumen & kategori
+User	user@asabri.com	password123	Melihat dokumen publik/internal
+
+ 
+5. Fitur Utama & Penggunaan Singkat
+a.	Dashboard
+Halaman utama setelah login menampilkan ringkasan dokumen dan statistik. Akses menu melalui sidebar di sebelah kiri.
+b.	Kelola Dokumen
+•	Upload: Menu untuk mengunggah dokumen baru (Laporan, Peraturan, dsb).
+•	Kategori: Mengatur kategori dokumen agar rapi.
+•	Preview: Dokumen PDF dapat dilihat langsung tanpa download.
+c.	Keamanan (Security)
+•	Dokumen sensitif hanya bisa diakses oleh user yang login.
+•	Publik hanya bisa melihat halaman depan/overview tanpa melakukan pengunduhan file internal.
+________________________________________
+Catatan Tambahan: Jika terjadi error "Permission denied" pada folder storage, jalankan perintah (khusus Linux/Mac, di Windows jarang diperlukan): chmod -R 775 storage bootstrap/cache
+
