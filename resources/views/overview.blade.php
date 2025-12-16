@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h4 class="mb-1" style="color: var(--asabri-navy); font-weight: 600;">
-                <i class="fas fa-th-large"></i> Informasi Portofolio
+                <i class="fas fa-info-circle"></i> Informasi Portfolio
             </h4>
             <p class="text-muted mb-0">Daftar kategori dokumen dan laporan investasi</p>
         </div>

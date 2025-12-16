@@ -5,7 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'ASABRI Portfolio') }}</title>
+    <link rel="icon" type="image/png" sizes="16x16"
+        href="{{ asset('https://faq.asabri.co.id/assets/images/Logo_asabri.png') }}">
+    <title>ASABRI Portfolio</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -44,7 +46,7 @@
             height: 100vh;
             width: 260px;
             background: var(--asabri-navy);
-            padding: 20px 0;
+            padding: 6px 0;
             transition: all 0.3s;
             z-index: 1000;
             overflow-y: auto;
@@ -52,7 +54,7 @@
 
         .sidebar .logo {
             text-align: center;
-            padding: 20px;
+            padding: 6px;
             color: white;
             font-size: 24px;
             font-weight: 700;
@@ -224,10 +226,10 @@
             @auth
                 <div class="user-info">
                     <span class="badge 
-                            @if(auth()->user()->role === 'superadmin') bg-danger
-                            @elseif(auth()->user()->role === 'admin') bg-warning
-                            @else bg-secondary
-                            @endif">
+                                                                            @if(auth()->user()->role === 'superadmin') bg-danger
+                                                                            @elseif(auth()->user()->role === 'admin') bg-warning
+                                                                            @else bg-secondary
+                                                                            @endif">
                         {{ strtoupper(auth()->user()->role) }}
                     </span>
                     <span>{{ auth()->user()->name }}</span>

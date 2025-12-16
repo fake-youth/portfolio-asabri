@@ -1,6 +1,7 @@
 <div class="sidebar">
     <div class="logo">
-        <i class="fas fa-bird"></i> PORTOFOLIO
+        <img src="{{ asset('https://faq.asabri.co.id/assets/images/logo_asabri_2.svg') }}" alt="Logo"
+            style="height: 100px;">
     </div>
 
     <nav>
