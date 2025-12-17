@@ -76,42 +76,58 @@
             <h5 class="mb-0" style="color: var(--asabri-navy); font-weight: 600;">
                 <i class="fas fa-file-alt"></i> Fund Fact Sheet
             </h5>
-            <button class="btn btn-sm btn-outline-primary toggle-collapse-btn" type="button" data-bs-toggle="collapse"
-                data-bs-target="#fundFactSheetCollapse" aria-expanded="true" aria-controls="fundFactSheetCollapse">
-                <i class="fas fa-chevron-up"></i> <span class="btn-text">Sembunyikan</span>
-            </button>
+            @if($fundFactSheetCategories->count() > 3 && !request('year') && !request('month') && !request('day'))
+                <button class="btn btn-sm btn-outline-primary toggle-collapse-btn" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#fundFactSheetCollapse" aria-expanded="false" aria-controls="fundFactSheetCollapse">
+                    <i class="fas fa-chevron-down"></i> <span class="btn-text">Tampilkan</span>
+                </button>
+            @endif
         </div>
 
-        <div class="collapse show" id="fundFactSheetCollapse">
+        <div class="mt-3" id="fundFactSheetSection">
+            <!-- This div wrapper is just for structure -->
             @if($fundFactSheetCategories->count() > 0)
                 <div class="row g-3">
-                    @foreach($fundFactSheetCategories as $category)
-                        <div class="col-md-6 col-lg-4">
-                            <div class="category-card">
-                                <div class="category-image">
-                                    <img src="{{ $category->image_url }}" alt="{{ $category->title }}"
-                                        onclick="showImagePreview('{{ $category->image_url }}', '{{ $category->title }}')"
-                                        style="cursor: pointer;" title="Klik untuk memperbesar">
-                                </div>
-                                <div class="category-content">
-                                    <h6 class="category-title">{{ $category->title }}</h6>
-                                    @if($category->manager)
-                                        <p class="category-manager">{{ $category->manager }}</p>
-                                    @endif
-                                    @if($category->description)
-                                        <p class="category-description">{{ Str::limit($category->description, 80) }}</p>
-                                    @endif
-                                    <div class="mt-3">
-                                        <a href="{{ route('fundfactsheet.index') }}"
-                                            class="btn btn-sm btn-outline-asabri w-100">
-                                            <i class="fas fa-eye me-1"></i> Lihat Dokumen
-                                        </a>
+                    @foreach($fundFactSheetCategories as $index => $category)
+                        @if($index == 3 && !request('year') && !request('month') && !request('day'))
+                            </div>
+                            <div class="collapse mt-3" id="fundFactSheetCollapse">
+                                <div class="row g-3">
+                        @endif
+                            <div class="col-md-6 col-lg-4">
+                                <div class="category-card">
+                                    <div class="category-image">
+                                        <img src="{{ $category->image_url }}" alt="{{ $category->title }}"
+                                            onclick="showImagePreview('{{ $category->image_url }}', '{{ $category->title }}')"
+                                            style="cursor: pointer;" title="Klik untuk memperbesar">
+                                    </div>
+                                    <div class="category-content">
+                                        <h6 class="category-title">{{ $category->title }}</h6>
+                                        @if($category->manager)
+                                            <p class="category-manager">{{ $category->manager }}</p>
+                                        @endif
+                                        <div class="d-flex align-items-center text-muted mb-2" style="font-size: 11px;">
+                                            <i class="far fa-clock me-1"></i>
+                                            <span>{{ $category->published_at ? $category->published_at->format('d M Y') : '-' }}</span>
+                                        </div>
+                                        @if($category->description)
+                                            <p class="category-description">{{ Str::limit($category->description, 80) }}</p>
+                                        @endif
+                                        <div class="mt-3">
+                                            <a href="{{ route('fundfactsheet.index') }}"
+                                                class="btn btn-sm btn-outline-asabri w-100">
+                                                <i class="fas fa-eye me-1"></i> Lihat Dokumen
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                     @endforeach
-                </div>
+                    </div>
+                    <!-- Move end of collapse if we opened it -->
+                    @if($fundFactSheetCategories->count() > 3 && !request('year') && !request('month') && !request('day'))
+                        </div>
+                    @endif
             @else
                 <div class="text-center py-4 text-muted">
                     <i class="fas fa-inbox fa-2x mb-2"></i>
@@ -127,42 +143,57 @@
             <h5 class="mb-0" style="color: var(--asabri-navy); font-weight: 600;">
                 <i class="fas fa-calendar-week"></i> Laporan Mingguan
             </h5>
-            <button class="btn btn-sm btn-outline-primary toggle-collapse-btn" type="button" data-bs-toggle="collapse"
-                data-bs-target="#laporanMingguanCollapse" aria-expanded="true" aria-controls="laporanMingguanCollapse">
-                <i class="fas fa-chevron-up"></i> <span class="btn-text">Sembunyikan</span>
-            </button>
+            @if($laporanMingguanCategories->count() > 3 && !request('year') && !request('month') && !request('day'))
+                <button class="btn btn-sm btn-outline-primary toggle-collapse-btn" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#laporanMingguanCollapse" aria-expanded="false" aria-controls="laporanMingguanCollapse">
+                    <i class="fas fa-chevron-down"></i> <span class="btn-text">Tampilkan</span>
+                </button>
+            @endif
         </div>
 
-        <div class="collapse show" id="laporanMingguanCollapse">
+        <div class="mt-3" id="laporanMingguanSection">
+            <!-- This div wrapper is just for structure -->
             @if($laporanMingguanCategories->count() > 0)
                 <div class="row g-3">
-                    @foreach($laporanMingguanCategories as $category)
-                        <div class="col-md-6 col-lg-4">
-                            <div class="category-card">
-                                <div class="category-image">
-                                    <img src="{{ $category->image_url }}" alt="{{ $category->title }}"
-                                        onclick="showImagePreview('{{ $category->image_url }}', '{{ $category->title }}')"
-                                        style="cursor: pointer;" title="Klik untuk memperbesar">
-                                </div>
-                                <div class="category-content">
-                                    <h6 class="category-title">{{ $category->title }}</h6>
-                                    @if($category->manager)
-                                        <p class="category-manager">{{ $category->manager }}</p>
-                                    @endif
-                                    @if($category->description)
-                                        <p class="category-description">{{ Str::limit($category->description, 80) }}</p>
-                                    @endif
-                                    <div class="mt-3">
-                                        <a href="{{ route('laporan.mingguan.index') }}"
-                                            class="btn btn-sm btn-outline-asabri w-100">
-                                            <i class="fas fa-eye me-1"></i> Lihat Dokumen
-                                        </a>
+                    @foreach($laporanMingguanCategories as $index => $category)
+                        @if($index == 3 && !request('year') && !request('month') && !request('day'))
+                            </div>
+                            <div class="collapse mt-3" id="laporanMingguanCollapse">
+                                <div class="row g-3">
+                        @endif
+                            <div class="col-md-6 col-lg-4">
+                                <div class="category-card">
+                                    <div class="category-image">
+                                        <img src="{{ $category->image_url }}" alt="{{ $category->title }}"
+                                            onclick="showImagePreview('{{ $category->image_url }}', '{{ $category->title }}')"
+                                            style="cursor: pointer;" title="Klik untuk memperbesar">
+                                    </div>
+                                    <div class="category-content">
+                                        <h6 class="category-title">{{ $category->title }}</h6>
+                                        @if($category->manager)
+                                            <p class="category-manager">{{ $category->manager }}</p>
+                                        @endif
+                                        <div class="d-flex align-items-center text-muted mb-2" style="font-size: 11px;">
+                                            <i class="far fa-clock me-1"></i>
+                                            <span>{{ $category->published_at ? $category->published_at->format('d M Y') : '-' }}</span>
+                                        </div>
+                                        @if($category->description)
+                                            <p class="category-description">{{ Str::limit($category->description, 80) }}</p>
+                                        @endif
+                                        <div class="mt-3">
+                                            <a href="{{ route('laporan.mingguan.index') }}"
+                                                class="btn btn-sm btn-outline-asabri w-100">
+                                                <i class="fas fa-eye me-1"></i> Lihat Dokumen
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                     @endforeach
-                </div>
+                    </div>
+                    @if($laporanMingguanCategories->count() > 3 && !request('year') && !request('month') && !request('day'))
+                        </div>
+                    @endif
             @else
                 <div class="text-center py-4 text-muted">
                     <i class="fas fa-inbox fa-2x mb-2"></i>
@@ -178,42 +209,57 @@
             <h5 class="mb-0" style="color: var(--asabri-navy); font-weight: 600;">
                 <i class="fas fa-calendar-alt"></i> Laporan Bulanan
             </h5>
-            <button class="btn btn-sm btn-outline-primary toggle-collapse-btn" type="button" data-bs-toggle="collapse"
-                data-bs-target="#laporanBulananCollapse" aria-expanded="true" aria-controls="laporanBulananCollapse">
-                <i class="fas fa-chevron-up"></i> <span class="btn-text">Sembunyikan</span>
-            </button>
+            @if($laporanBulananCategories->count() > 3 && !request('year') && !request('month') && !request('day'))
+                <button class="btn btn-sm btn-outline-primary toggle-collapse-btn" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#laporanBulananCollapse" aria-expanded="false" aria-controls="laporanBulananCollapse">
+                    <i class="fas fa-chevron-down"></i> <span class="btn-text">Tampilkan</span>
+                </button>
+            @endif
         </div>
 
-        <div class="collapse show" id="laporanBulananCollapse">
+        <div class="mt-3" id="laporanBulananSection">
+            <!-- This div wrapper is just for structure -->
             @if($laporanBulananCategories->count() > 0)
                 <div class="row g-3">
-                    @foreach($laporanBulananCategories as $category)
-                        <div class="col-md-6 col-lg-4">
-                            <div class="category-card">
-                                <div class="category-image">
-                                    <img src="{{ $category->image_url }}" alt="{{ $category->title }}"
-                                        onclick="showImagePreview('{{ $category->image_url }}', '{{ $category->title }}')"
-                                        style="cursor: pointer;" title="Klik untuk memperbesar">
-                                </div>
-                                <div class="category-content">
-                                    <h6 class="category-title">{{ $category->title }}</h6>
-                                    @if($category->manager)
-                                        <p class="category-manager">{{ $category->manager }}</p>
-                                    @endif
-                                    @if($category->description)
-                                        <p class="category-description">{{ Str::limit($category->description, 80) }}</p>
-                                    @endif
-                                    <div class="mt-3">
-                                        <a href="{{ route('laporan.bulanan.index') }}"
-                                            class="btn btn-sm btn-outline-asabri w-100">
-                                            <i class="fas fa-eye me-1"></i> Lihat Dokumen
-                                        </a>
+                    @foreach($laporanBulananCategories as $index => $category)
+                        @if($index == 3 && !request('year') && !request('month') && !request('day'))
+                            </div>
+                            <div class="collapse mt-3" id="laporanBulananCollapse">
+                                <div class="row g-3">
+                        @endif
+                            <div class="col-md-6 col-lg-4">
+                                <div class="category-card">
+                                    <div class="category-image">
+                                        <img src="{{ $category->image_url }}" alt="{{ $category->title }}"
+                                            onclick="showImagePreview('{{ $category->image_url }}', '{{ $category->title }}')"
+                                            style="cursor: pointer;" title="Klik untuk memperbesar">
+                                    </div>
+                                    <div class="category-content">
+                                        <h6 class="category-title">{{ $category->title }}</h6>
+                                        @if($category->manager)
+                                            <p class="category-manager">{{ $category->manager }}</p>
+                                        @endif
+                                        <div class="d-flex align-items-center text-muted mb-2" style="font-size: 11px;">
+                                            <i class="far fa-clock me-1"></i>
+                                            <span>{{ $category->published_at ? $category->published_at->format('d M Y') : '-' }}</span>
+                                        </div>
+                                        @if($category->description)
+                                            <p class="category-description">{{ Str::limit($category->description, 80) }}</p>
+                                        @endif
+                                        <div class="mt-3">
+                                            <a href="{{ route('laporan.bulanan.index') }}"
+                                                class="btn btn-sm btn-outline-asabri w-100">
+                                                <i class="fas fa-eye me-1"></i> Lihat Dokumen
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                     @endforeach
-                </div>
+                    </div>
+                    @if($laporanBulananCategories->count() > 3 && !request('year') && !request('month') && !request('day'))
+                        </div>
+                    @endif
             @else
                 <div class="text-center py-4 text-muted">
                     <i class="fas fa-inbox fa-2x mb-2"></i>
@@ -229,42 +275,57 @@
             <h5 class="mb-0" style="color: var(--asabri-navy); font-weight: 600;">
                 <i class="fas fa-calendar"></i> Laporan Tahunan
             </h5>
-            <button class="btn btn-sm btn-outline-primary toggle-collapse-btn" type="button" data-bs-toggle="collapse"
-                data-bs-target="#laporanTahunanCollapse" aria-expanded="true" aria-controls="laporanTahunanCollapse">
-                <i class="fas fa-chevron-up"></i> <span class="btn-text">Sembunyikan</span>
-            </button>
+            @if($laporanTahunanCategories->count() > 3 && !request('year') && !request('month') && !request('day'))
+                <button class="btn btn-sm btn-outline-primary toggle-collapse-btn" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#laporanTahunanCollapse" aria-expanded="false" aria-controls="laporanTahunanCollapse">
+                    <i class="fas fa-chevron-down"></i> <span class="btn-text">Tampilkan</span>
+                </button>
+            @endif
         </div>
 
-        <div class="collapse show" id="laporanTahunanCollapse">
+        <div class="mt-3" id="laporanTahunanSection">
+            <!-- This div wrapper is just for structure -->
             @if($laporanTahunanCategories->count() > 0)
                 <div class="row g-3">
-                    @foreach($laporanTahunanCategories as $category)
-                        <div class="col-md-6 col-lg-4">
-                            <div class="category-card">
-                                <div class="category-image">
-                                    <img src="{{ $category->image_url }}" alt="{{ $category->title }}"
-                                        onclick="showImagePreview('{{ $category->image_url }}', '{{ $category->title }}')"
-                                        style="cursor: pointer;" title="Klik untuk memperbesar">
-                                </div>
-                                <div class="category-content">
-                                    <h6 class="category-title">{{ $category->title }}</h6>
-                                    @if($category->manager)
-                                        <p class="category-manager">{{ $category->manager }}</p>
-                                    @endif
-                                    @if($category->description)
-                                        <p class="category-description">{{ Str::limit($category->description, 80) }}</p>
-                                    @endif
-                                    <div class="mt-3">
-                                        <a href="{{ route('laporan.tahunan.index') }}"
-                                            class="btn btn-sm btn-outline-asabri w-100">
-                                            <i class="fas fa-eye me-1"></i> Lihat Dokumen
-                                        </a>
+                    @foreach($laporanTahunanCategories as $index => $category)
+                        @if($index == 3 && !request('year') && !request('month') && !request('day'))
+                            </div>
+                            <div class="collapse mt-3" id="laporanTahunanCollapse">
+                                <div class="row g-3">
+                        @endif
+                            <div class="col-md-6 col-lg-4">
+                                <div class="category-card">
+                                    <div class="category-image">
+                                        <img src="{{ $category->image_url }}" alt="{{ $category->title }}"
+                                            onclick="showImagePreview('{{ $category->image_url }}', '{{ $category->title }}')"
+                                            style="cursor: pointer;" title="Klik untuk memperbesar">
+                                    </div>
+                                    <div class="category-content">
+                                        <h6 class="category-title">{{ $category->title }}</h6>
+                                        @if($category->manager)
+                                            <p class="category-manager">{{ $category->manager }}</p>
+                                        @endif
+                                        <div class="d-flex align-items-center text-muted mb-2" style="font-size: 11px;">
+                                            <i class="far fa-clock me-1"></i>
+                                            <span>{{ $category->published_at ? $category->published_at->format('d M Y') : '-' }}</span>
+                                        </div>
+                                        @if($category->description)
+                                            <p class="category-description">{{ Str::limit($category->description, 80) }}</p>
+                                        @endif
+                                        <div class="mt-3">
+                                            <a href="{{ route('laporan.tahunan.index') }}"
+                                                class="btn btn-sm btn-outline-asabri w-100">
+                                                <i class="fas fa-eye me-1"></i> Lihat Dokumen
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                     @endforeach
-                </div>
+                    </div>
+                    @if($laporanTahunanCategories->count() > 3 && !request('year') && !request('month') && !request('day'))
+                        </div>
+                    @endif
             @else
                 <div class="text-center py-4 text-muted">
                     <i class="fas fa-inbox fa-2x mb-2"></i>

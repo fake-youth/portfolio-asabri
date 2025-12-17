@@ -34,9 +34,9 @@ class OverviewController extends Controller
         // Check if any filters are applied
         $hasFilters = $year || $month || $day;
 
-        // If no filters are applied, limit to 6 (or whatever number is preferred)
+        // If no filters are applied, limit to 9
         // If filters ARE applied, we show all matching records (limit = null)
-        $limit = $hasFilters ? null : 6;
+        $limit = $hasFilters ? null : 9;
 
         // Get active categories grouped by type (filtered)
         $fundFactSheetCategories = DocumentCategory::getByType('fund_fact_sheet', $year, $month, $day, $limit);
