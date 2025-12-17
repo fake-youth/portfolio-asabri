@@ -31,11 +31,18 @@ class OverviewController extends Controller
         $laporanBulananCount = LaporanBulanan::count();
         $laporanTahunanCount = LaporanTahunan::count();
 
+        // Check if any filters are applied
+        $hasFilters = $year || $month || $day;
+
+        // If no filters are applied, limit to 6 (or whatever number is preferred)
+        // If filters ARE applied, we show all matching records (limit = null)
+        $limit = $hasFilters ? null : 6;
+
         // Get active categories grouped by type (filtered)
-        $fundFactSheetCategories = DocumentCategory::getByType('fund_fact_sheet', $year, $month, $day);
-        $laporanMingguanCategories = DocumentCategory::getByType('laporan_mingguan', $year, $month, $day);
-        $laporanBulananCategories = DocumentCategory::getByType('laporan_bulanan', $year, $month, $day);
-        $laporanTahunanCategories = DocumentCategory::getByType('laporan_tahunan', $year, $month, $day);
+        $fundFactSheetCategories = DocumentCategory::getByType('fund_fact_sheet', $year, $month, $day, $limit);
+        $laporanMingguanCategories = DocumentCategory::getByType('laporan_mingguan', $year, $month, $day, $limit);
+        $laporanBulananCategories = DocumentCategory::getByType('laporan_bulanan', $year, $month, $day, $limit);
+        $laporanTahunanCategories = DocumentCategory::getByType('laporan_tahunan', $year, $month, $day, $limit);
 
         return view('overview', compact(
             'fundFactSheetCount',

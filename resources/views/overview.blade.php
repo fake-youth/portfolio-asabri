@@ -76,9 +76,9 @@
             <h5 class="mb-0" style="color: var(--asabri-navy); font-weight: 600;">
                 <i class="fas fa-file-alt"></i> Fund Fact Sheet
             </h5>
-            <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="collapse"
-                data-bs-target="#fundFactSheetCollapse">
-                <i class="fas fa-chevron-down"></i> Expand
+            <button class="btn btn-sm btn-outline-primary toggle-collapse-btn" type="button" data-bs-toggle="collapse"
+                data-bs-target="#fundFactSheetCollapse" aria-expanded="true" aria-controls="fundFactSheetCollapse">
+                <i class="fas fa-chevron-up"></i> <span class="btn-text">Sembunyikan</span>
             </button>
         </div>
 
@@ -127,9 +127,9 @@
             <h5 class="mb-0" style="color: var(--asabri-navy); font-weight: 600;">
                 <i class="fas fa-calendar-week"></i> Laporan Mingguan
             </h5>
-            <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="collapse"
-                data-bs-target="#laporanMingguanCollapse">
-                <i class="fas fa-chevron-down"></i> Expand
+            <button class="btn btn-sm btn-outline-primary toggle-collapse-btn" type="button" data-bs-toggle="collapse"
+                data-bs-target="#laporanMingguanCollapse" aria-expanded="true" aria-controls="laporanMingguanCollapse">
+                <i class="fas fa-chevron-up"></i> <span class="btn-text">Sembunyikan</span>
             </button>
         </div>
 
@@ -178,9 +178,9 @@
             <h5 class="mb-0" style="color: var(--asabri-navy); font-weight: 600;">
                 <i class="fas fa-calendar-alt"></i> Laporan Bulanan
             </h5>
-            <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="collapse"
-                data-bs-target="#laporanBulananCollapse">
-                <i class="fas fa-chevron-down"></i> Expand
+            <button class="btn btn-sm btn-outline-primary toggle-collapse-btn" type="button" data-bs-toggle="collapse"
+                data-bs-target="#laporanBulananCollapse" aria-expanded="true" aria-controls="laporanBulananCollapse">
+                <i class="fas fa-chevron-up"></i> <span class="btn-text">Sembunyikan</span>
             </button>
         </div>
 
@@ -229,9 +229,9 @@
             <h5 class="mb-0" style="color: var(--asabri-navy); font-weight: 600;">
                 <i class="fas fa-calendar"></i> Laporan Tahunan
             </h5>
-            <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="collapse"
-                data-bs-target="#laporanTahunanCollapse">
-                <i class="fas fa-chevron-down"></i> Expand
+            <button class="btn btn-sm btn-outline-primary toggle-collapse-btn" type="button" data-bs-toggle="collapse"
+                data-bs-target="#laporanTahunanCollapse" aria-expanded="true" aria-controls="laporanTahunanCollapse">
+                <i class="fas fa-chevron-up"></i> <span class="btn-text">Sembunyikan</span>
             </button>
         </div>
 
@@ -357,5 +357,31 @@
             document.getElementById('previewTitle').textContent = title;
             new bootstrap.Modal(document.getElementById('imagePreviewModal')).show();
         }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const collapses = document.querySelectorAll('.collapse');
+
+            collapses.forEach(collapse => {
+                collapse.addEventListener('show.bs.collapse', function () {
+                    const button = document.querySelector(`[data-bs-target="#${this.id}"]`);
+                    if (button) {
+                        const icon = button.querySelector('i');
+                        const text = button.querySelector('.btn-text');
+                        icon.className = 'fas fa-chevron-up';
+                        text.textContent = 'Sembunyikan';
+                    }
+                });
+
+                collapse.addEventListener('hide.bs.collapse', function () {
+                    const button = document.querySelector(`[data-bs-target="#${this.id}"]`);
+                    if (button) {
+                        const icon = button.querySelector('i');
+                        const text = button.querySelector('.btn-text');
+                        icon.className = 'fas fa-chevron-down';
+                        text.textContent = 'Tampilkan';
+                    }
+                });
+            });
+        });
     </script>
 </x-app-layout>

@@ -34,7 +34,7 @@ class DocumentCategory extends Model
     /**
      * Get active categories by type, optionally filtered by year and month
      */
-    public static function getByType($type, $year = null, $month = null, $day = null)
+    public static function getByType($type, $year = null, $month = null, $day = null, $limit = null)
     {
         $query = self::where('type', $type)
             ->where('is_active', true);
@@ -51,9 +51,14 @@ class DocumentCategory extends Model
             $query->whereDay('published_at', $day);
         }
 
-        return $query->orderBy('published_at', 'desc')
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $query->orderBy('published_at', 'desc')
+            ->orderBy('created_at', 'desc');
+
+        if ($limit) {
+            $query->take($limit);
+        }
+
+        return $query->get();
     }
 
     public function getImageUrlAttribute()
