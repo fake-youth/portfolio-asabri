@@ -270,7 +270,7 @@
     </div>
 
     <!--Laporan Tahunan Section -->
-    <div class="overview-section mb-5">
+    <!--<div class="overview-section mb-5">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h5 class="mb-0" style="color: var(--asabri-navy); font-weight: 600;">
                 <i class="fas fa-calendar"></i> Laporan Tahunan
@@ -285,7 +285,7 @@
 
         <div class="mt-3" id="laporanTahunanSection">
             <!-- This div wrapper is just for structure -->
-            @if($laporanTahunanCategories->count() > 0)
+            <!--@if($laporanTahunanCategories->count() > 0)
                 <div class="row g-3">
                     @foreach($laporanTahunanCategories as $index => $category)
                         @if($index == 3 && !request('year') && !request('month') && !request('day'))
@@ -333,7 +333,7 @@
                 </div>
             @endif
         </div>
-    </div>
+    </div>-->
 
     <style>
         .overview-section {

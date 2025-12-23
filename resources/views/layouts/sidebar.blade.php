@@ -2,6 +2,7 @@
     <div class="logo">
         <img src="{{ asset('https://faq.asabri.co.id/assets/images/logo_asabri_2.svg') }}" alt="Logo"
             style="height: 100px;">
+            <p style="font-size: 70;">Monitoring & Laporan Investasi</p>
     </div>
 
     <nav>
@@ -18,7 +19,7 @@
             <i class="fas fa-file-alt"></i> Fund Fact Sheet
         </a>
 
-        <!--<a href="{{ route('laporan.mingguan.index') }}"
+        <a href="{{ route('laporan.mingguan.index') }}"
             class="nav-link {{ request()->routeIs('laporan.mingguan.*') ? 'active' : '' }}">
             <i class="fas fa-calendar-week"></i> Laporan Mingguan
         </a>
@@ -28,7 +29,7 @@
             <i class="fas fa-calendar-alt"></i> Laporan Bulanan
         </a>
 
-        <a href="{{ route('laporan.tahunan.index') }}"
+        <!--<a href="{{ route('laporan.tahunan.index') }}"
             class="nav-link {{ request()->routeIs('laporan.tahunan.*') ? 'active' : '' }}">
             <i class="fas fa-calendar"></i> Laporan Tahunan
         </a>-->
